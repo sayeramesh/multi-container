@@ -1,3 +1,4 @@
+language: generic
 sudo: required
 services:
     - docker
@@ -6,7 +7,7 @@ before_install:
     - docker build -t ramesh/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    -  docker run ramesh/react-test npm test -- --coverage
+    -  docker run -e CI=true ramesh/react-test npm test -- --coverage
 
 after_success:
     - docker build -t ramesh/multi-client ./client
@@ -23,4 +24,4 @@ after_success:
     - docker push ramesh/multi-nginx
     - docker push ramesh/multi-server
     - docker push ramesh/multi-worker
-    
+
