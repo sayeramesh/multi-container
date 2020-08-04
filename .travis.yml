@@ -4,24 +4,24 @@ services:
     - docker
 
 before_install:
-    - docker build -t ramesh/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t sayeramesh/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    -  docker run -e CI=true ramesh/react-test npm test -- --coverage
+    -  docker run -e CI=true sayeramesh/react-test npm test -- --coverage
 
 after_success:
-    - docker build -t ramesh/multi-client ./client
-    - docker build -t ramesh/multi-nginx ./nginx
-    - docker build -t ramesh/multi-server ./server
-    - docker build -t ramesh/multi-worker ./worker
+    - docker build -t sayeramesh/multi-client ./client
+    - docker build -t sayeramesh/multi-nginx ./nginx
+    - docker build -t sayeramesh/multi-server ./server
+    - docker build -t sayeramesh/multi-worker ./worker
     
     # LOGIN to rhe docker-CLI
     #username and passwprd is added in travis->environment variables
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     #take those images and push them to docker hub
 
-    - docker push ramesh/multi-client
-    - docker push ramesh/multi-nginx
-    - docker push ramesh/multi-server
-    - docker push ramesh/multi-worker
+    - docker push sayeramesh/multi-client
+    - docker push sayeramesh/multi-nginx
+    - docker push sayeramesh/multi-server
+    - docker push sayeramesh/multi-worker
 
